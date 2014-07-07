@@ -19,9 +19,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.gui = true
   end
 
-  # HDD Size Up?
-  #v.customize 'pre-boot', ['modifyhd', :id, '--resize', '15360']
-
   # Bootstrap IronData Base Env
   config.vm.provision "file", source: "id-env.sh", destination: "/home/vagrant/id-env.sh"
   config.vm.provision "shell", path: "base.sh"
