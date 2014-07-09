@@ -15,7 +15,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Enable GUI
   config.vm.provider "virtualbox" do |v|
     v.cpus = 2
-    v.memory = 2048
+    v.memory = 4096
     v.gui = true
   end
 

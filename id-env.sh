@@ -32,19 +32,43 @@ sudo apt-get install -y chromium-browser
 #Tomcat 7
 #wget http://apache.claz.org/tomcat/tomcat-7/v7.0.54/bin/apache-tomcat-7.0.54.tar.gz
 #tar -xzf apache-tomcat-7.0.54.tar.gz
-sudo apt-get install -y tomcat7
+#sudo apt-get install -y tomcat7
 
 # Mysql 5.1
 #wget http://dev.mysql.com/get/Downloads/MySQL-5.1/mysql-5.1.73-linux-x86_64-glibc23.tar.gz
 #tar -xzf mysqul5.1.73-linux-x86_64-glibc23.tar.gz
-# 5.1 is a real pain to install-- I can keep looking if there are incompatibilities introduced from the minor versions
 sudo apt-get install -y mysql-server
 
 # Liquibase
-wget "http://downloads.sourceforge.net/project/liquibase/Liquibase%20Core/liquibase-3.2.0-bin.tar.gz?r=http%3A%2F%2Fwww.liquibase.org%2Fdownload%2F&ts=1404757061&use_mirror=iweb"
-mv liquibase-3.2.0-bin.tar.gz\?r\=http%3A%2F%2Fwww.liquibase.org%2Fdownload%2F\&ts\=1404757061\&use_mirror\=iweb liquibase-3.2.0-bin.tar.gz
+wget "http://downloads.sourceforge.net/project/liquibase/Liquibase%20Core/liquibase-3.2.0-bin.tar.gz?r=http%3A%2F%2Fwww.liquibase.org%2Fdownload%2F&ts=1404757061&use_mirror=iweb" -O liquibase-3.2.0-bin.tar.gz
 mkdir liquibase-3.2.0
 tar -xzf liquibase-3.2.0-bin.tar.gz -C liquibase-3.2.0
+#chmod +x liquibase-3.2.0/liquibase
+#echo "export PATH=$PATH:/home/vagrant/liquibase-3.2.0/" >> /home/vagrant/.bashrc
+
+# Prep MySQL
+#sudo echo "# Case insensitive for Windows inter-op" >> /etc/mysql/my.cnf
+#sudo echo "lower_case_table_names=1" >> /etc/mysql/my.cnf
+
+# ICM DB/Tables
+#mysql -u root -e "CREATE DATABASE icmdb;"
+#mysql -u root -e "CREATE USER 'icmadmin'@'localhost' IDENTIFIED BY 'icmadmin';"
+#mysql -u root -e "GRANT ALL icmdb.* to 'icmadmin'@'localhost';"
+#mysql -u root -e "GRANT ALL icmdb.* to 'icmadmin'@'127.0.0.1';"
+
+# TODO: Get liquibase code
+# svn co https://svn.irondatacorp.com/svn/icm-20/clientApps/wiiris/database/branches/v004/ liquibase
+# change the install.sh log level to debug
+# run the install.sh
+
+# BBPM DB/Tables
+#mysql -u root -e "CREATE DATABASE bpmdb;"
+#mysql -u root -e "CREATE USER 'bpmadmin'@'localhost' IDENTIFIED BY 'bpmadmin';"
+#mysql -u root -e "GRANT ALL bpmdb.* to 'bpmadmin'@'localhost';"
+#mysql -u root -e "GRANT ALL bpmdb.* to 'bpmadmin'@'127.0.0.1';"
+#wget http://bpmnwithactiviti.org/files/activiti-5.13.zip
+#unzip activiti-5.13.zip
+# run the database/create/*mysql* sql scripts
 
 # check out codebase
 #mkdir Code
