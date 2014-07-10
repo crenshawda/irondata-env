@@ -1,15 +1,17 @@
 #!/bin/bash
 
+export DEBIAN_FRONTEND=noninteractive
+
 curl -s get.gvmtool.net | bash
 source "/home/vagrant/.gvm/bin/gvm-init.sh"
 sed -i "s/gvm_auto_answer=false/gvm_auto_answer=true/" /home/vagrant/.gvm/etc/config
 
-# grails comes packaged with the correct version of groovy
+# GVM (Grails, Groozy, Gradle, etc)
 gvm install grails 2.2.4
 gvm install gradle
 
 # GGTS
-wget http://download.springsource.com/release/STS/3.5.1/dist/e4.3/groovy-grails-tool-suite-3.5.1.RELEASE-e4.3.2-linux-gtk-x86_64.tar.gz
+wget -q http://download.springsource.com/release/STS/3.5.1/dist/e4.3/groovy-grails-tool-suite-3.5.1.RELEASE-e4.3.2-linux-gtk-x86_64.tar.gz
 tar -xzf groovy-grails-tool-suite-3.5.1.RELEASE-e4.3.2-linux-gtk-x86_64.tar.gz
 # Desktop Shortcut
 touch /home/vagrant/Desktop/GGTS.desktop
@@ -24,19 +26,20 @@ echo "Categories=Utility;Application;" >> /home/vagrant/Desktop/GGTS.desktop
 chmod +x /home/vagrant/Desktop/GGTS.desktop
 
 # Liquibase
-wget "http://downloads.sourceforge.net/project/liquibase/Liquibase%20Core/liquibase-3.2.0-bin.tar.gz?r=http%3A%2F%2Fwww.liquibase.org%2Fdownload%2F&ts=1404757061&use_mirror=iweb" -O liquibase-3.2.0-bin.tar.gz
+wget -q "http://downloads.sourceforge.net/project/liquibase/Liquibase%20Core/liquibase-3.2.0-bin.tar.gz?r=http%3A%2F%2Fwww.liquibase.org%2Fdownload%2F&ts=1404757061&use_mirror=iweb" -O liquibase-3.2.0-bin.tar.gz
 mkdir liquibase-3.2.0
 tar -xzf liquibase-3.2.0-bin.tar.gz -C liquibase-3.2.0
 chmod +x liquibase-3.2.0/liquibase
 echo "export PATH=$PATH:/home/vagrant/liquibase-3.2.0/" >> /home/vagrant/.bashrc
 
-# Mysql 5.1
+# Mysql 5.5
 #sudo apt-get install -y mysql-server
 
 #TODO: Wrong! Needs to be under [mysqld]
 # Prep MySQL
-#sudo echo "# Case insensitive for Windows inter-op" >> /etc/mysql/my.cnf
-#sudo echo "lower_case_table_names=1" >> /etc/mysql/my.cnf
+#echo "# Case insensitive for Windows inter-op" | sudo tee -a /etc/mysql/my.cnf
+#echo "lower_case_table_names=1" | sudo tee -a /etc/mysql/my.cnf
+#sudo service mysql restart
 
 # ICM DB/Tables
 #mysql -u root -e "CREATE DATABASE icmdb;"
