@@ -7,8 +7,8 @@ source "/home/vagrant/.gvm/bin/gvm-init.sh"
 sed -i "s/gvm_auto_answer=false/gvm_auto_answer=true/" /home/vagrant/.gvm/etc/config
 
 # GVM (Grails, Groovy, Gradle, etc)
-gvm install grails 2.2.4
-gvm install gradle
+gvm install grails 2.2.4 > /dev/null
+gvm install gradle > /dev/null
 
 # GGTS
 wget -q http://download.springsource.com/release/STS/3.5.1/dist/e4.3/groovy-grails-tool-suite-3.5.1.RELEASE-e4.3.2-linux-gtk-x86_64.tar.gz
@@ -45,10 +45,10 @@ echo "lower_case_table_names=1" | sudo tee -a /etc/mysql/my.cnf
 sudo service mysql restart
 
 # BBPM DB/Tables
-mysql -u root -p root -e "CREATE DATABASE bpmdb;"
-mysql -u root -p root -e "CREATE USER 'bpmadmin'@'localhost' IDENTIFIED BY 'bpmadmin';"
-mysql -u root -p root -e "GRANT ALL ON bpmdb.* to 'bpmadmin'@'localhost';"
-mysql -u root -p root -e "GRANT ALL ON bpmdb.* to 'bpmadmin'@'127.0.0.1';"
+mysql -uroot -proot -e "CREATE DATABASE bpmdb;"
+mysql -uroot -proot -e "CREATE USER 'bpmadmin'@'localhost' IDENTIFIED BY 'bpmadmin';"
+mysql -uroot -proot -e "GRANT ALL ON bpmdb.* to 'bpmadmin'@'localhost';"
+mysql -uroot -proot -e "GRANT ALL ON bpmdb.* to 'bpmadmin'@'127.0.0.1';"
 wget -q http://bpmnwithactiviti.org/files/activiti-5.13.zip
 unzip activiti-5.13.zip
 mysql -uroot -proot bpmdb < activiti-5.13/database/create/activiti.mysql.create.engine.sql
@@ -56,18 +56,23 @@ mysql -uroot -proot bpmdb < activiti-5.13/database/create/activiti.mysql.create.
 mysql -uroot -proot bpmdb < activiti-5.13/database/create/activiti.mysql.create.identity.sql
 
 # ICM DB/Tables
-mysql -u root -p root -e "CREATE DATABASE icmdb;"
-mysql -u root -p root -e "CREATE USER 'icmadmin'@'localhost' IDENTIFIED BY 'icmadmin';"
-mysql -u root -p root -e "GRANT ALL ON icmdb.* to 'icmadmin'@'localhost';"
-mysql -u root -p root -e "GRANT ALL ON icmdb.* to 'icmadmin'@'127.0.0.1';"
+mysql -uroot -proot -e "CREATE DATABASE icmdb;"
+mysql -uroot -proot -e "CREATE USER 'icmadmin'@'localhost' IDENTIFIED BY 'icmadmin';"
+mysql -uroot -proot -e "GRANT ALL ON icmdb.* to 'icmadmin'@'localhost';"
+mysql -uroot -proot -e "GRANT ALL ON icmdb.* to 'icmadmin'@'127.0.0.1';"
+
+# Prep Code dir
+mkdir /home/vagrant/Code
 
 # TODO: Get liquibase code
-# svn co https://svn.irondatacorp.com/svn/icm-20/clientApps/wiiris/database/branches/v004/ liquibase
-# change the install.sh log level to debug
-# run the install.sh
+#cd Code
+#svn co https://svn.irondatacorp.com/svn/icm-20/clientApps/wiiris/database/branches/v004/ liquibase
+#change the install.sh log level to debug
+#sed -i 's/liquibase --defaultsFile=\$1.properties --changeLogFile=install.xml --logLevel=severe update/liquibase --defaultsFile=\$1.properties --changeLogFile=install.xml --logLevel=debug update/' /home/vagrant/Code/liquibase/install.sh
+#chmod +x /home/vagrant/Code/liquibase/install.sh
+#/home/vagrant/Code/liquibase/install.sh mysql
 
 # TODO: check out codebase
-#mkdir Code
 #cd Code
 # TODO: get a read-only use to automate checkout and let the devs customize their own svn conf 
 #svn checkout https://svn.irondatacorp.com/svn/icm-20 Code
