@@ -1,12 +1,13 @@
 #!/bin/bash
 
+sudo add-apt-repository -y ppa:webupd8team/java
 sudo apt-get update > /dev/null
+sudo apt-get -y install debconf-utils
 
 # Oracle JDK - can I automate this?
-#sudo add-apt-repository -y ppa:webupd8team/java
-#sudo apt-get update
-#sudo apt-get -y install oracle-java7-installer
-#sudo update-java-alternatives -s java-7-oracle
+echo "oracle-java7-installer	shared/accepted-oracle-license-v1-1	boolean	true" | sudo debconf-set-selections
+sudo apt-get -y install oracle-java7-installer
+sudo update-java-alternatives -s java-7-oracle
 
 sudo apt-get -y install vim unzip subversion git virtualbox-guest-additions-iso gnome-session-flashback
 

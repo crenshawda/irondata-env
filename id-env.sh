@@ -6,7 +6,7 @@ curl -s get.gvmtool.net | bash
 source "/home/vagrant/.gvm/bin/gvm-init.sh"
 sed -i "s/gvm_auto_answer=false/gvm_auto_answer=true/" /home/vagrant/.gvm/etc/config
 
-# GVM (Grails, Groozy, Gradle, etc)
+# GVM (Grails, Groovy, Gradle, etc)
 gvm install grails 2.2.4
 gvm install gradle
 
@@ -24,6 +24,7 @@ echo "Terminal=false" >> /home/vagrant/Desktop/GGTS.desktop
 echo "Type=Application" >> /home/vagrant/Desktop/GGTS.desktop
 echo "Categories=Utility;Application;" >> /home/vagrant/Desktop/GGTS.desktop
 chmod +x /home/vagrant/Desktop/GGTS.desktop
+#TODO: change Grails/JVM installations to the ones we installed
 
 # Liquibase
 wget -q "http://downloads.sourceforge.net/project/liquibase/Liquibase%20Core/liquibase-3.2.0-bin.tar.gz?r=http%3A%2F%2Fwww.liquibase.org%2Fdownload%2F&ts=1404757061&use_mirror=iweb" -O liquibase-3.2.0-bin.tar.gz
@@ -38,6 +39,7 @@ echo "export PATH=$PATH:/home/vagrant/liquibase-3.2.0/" >> /home/vagrant/.bashrc
 #TODO: Wrong! Needs to be under [mysqld]
 # Prep MySQL
 #echo "# Case insensitive for Windows inter-op" | sudo tee -a /etc/mysql/my.cnf
+#echo "[mysqld]" | sudo tee -a /etc/mysql/my.cnf
 #echo "lower_case_table_names=1" | sudo tee -a /etc/mysql/my.cnf
 #sudo service mysql restart
 
