@@ -34,39 +34,43 @@ chmod +x liquibase-3.2.0/liquibase
 echo "export PATH=$PATH:/home/vagrant/liquibase-3.2.0/" >> /home/vagrant/.bashrc
 
 # Mysql 5.5
-#sudo apt-get install -y mysql-server
+echo "mysql-server mysql-server/root_password password root" | sudo debconf-set-selections
+echo "mysql-server mysql-server/root_password_again password root" | sudo debconf-set-selections
+sudo apt-get install -y mysql-server
 
-#TODO: Wrong! Needs to be under [mysqld]
 # Prep MySQL
-#echo "# Case insensitive for Windows inter-op" | sudo tee -a /etc/mysql/my.cnf
-#echo "[mysqld]" | sudo tee -a /etc/mysql/my.cnf
-#echo "lower_case_table_names=1" | sudo tee -a /etc/mysql/my.cnf
-#sudo service mysql restart
+echo "# Case insensitive for Windows inter-op" | sudo tee -a /etc/mysql/my.cnf
+echo "[mysqld]" | sudo tee -a /etc/mysql/my.cnf
+echo "lower_case_table_names=1" | sudo tee -a /etc/mysql/my.cnf
+sudo service mysql restart
+
+# BBPM DB/Tables
+mysql -u root -p root -e "CREATE DATABASE bpmdb;"
+mysql -u root -p root -e "CREATE USER 'bpmadmin'@'localhost' IDENTIFIED BY 'bpmadmin';"
+mysql -u root -p root -e "GRANT ALL ON bpmdb.* to 'bpmadmin'@'localhost';"
+mysql -u root -p root -e "GRANT ALL ON bpmdb.* to 'bpmadmin'@'127.0.0.1';"
+wget -q http://bpmnwithactiviti.org/files/activiti-5.13.zip
+unzip activiti-5.13.zip
+mysql -uroot -proot bpmdb < activiti-5.13/database/create/activiti.mysql.create.engine.sql
+mysql -uroot -proot bpmdb < activiti-5.13/database/create/activiti.mysql.create.history.sql
+mysql -uroot -proot bpmdb < activiti-5.13/database/create/activiti.mysql.create.identity.sql
 
 # ICM DB/Tables
-#mysql -u root -e "CREATE DATABASE icmdb;"
-#mysql -u root -e "CREATE USER 'icmadmin'@'localhost' IDENTIFIED BY 'icmadmin';"
-#mysql -u root -e "GRANT ALL ON icmdb.* to 'icmadmin'@'localhost';"
-#mysql -u root -e "GRANT ALL ON icmdb.* to 'icmadmin'@'127.0.0.1';"
+#mysql -u root -p root -e "CREATE DATABASE icmdb;"
+#mysql -u root -p root -e "CREATE USER 'icmadmin'@'localhost' IDENTIFIED BY 'icmadmin';"
+#mysql -u root -p root -e "GRANT ALL ON icmdb.* to 'icmadmin'@'localhost';"
+#mysql -u root -p root -e "GRANT ALL ON icmdb.* to 'icmadmin'@'127.0.0.1';"
 
 # TODO: Get liquibase code
 # svn co https://svn.irondatacorp.com/svn/icm-20/clientApps/wiiris/database/branches/v004/ liquibase
 # change the install.sh log level to debug
 # run the install.sh
 
-# BBPM DB/Tables
-#mysql -u root -e "CREATE DATABASE bpmdb;"
-#mysql -u root -e "CREATE USER 'bpmadmin'@'localhost' IDENTIFIED BY 'bpmadmin';"
-#mysql -u root -e "GRANT ALL ON bpmdb.* to 'bpmadmin'@'localhost';"
-#mysql -u root -e "GRANT ALL ON bpmdb.* to 'bpmadmin'@'127.0.0.1';"
-#wget http://bpmnwithactiviti.org/files/activiti-5.13.zip
-#unzip activiti-5.13.zip
-# run the database/create/*mysql* sql scripts
-
-# check out codebase
+# TODO: check out codebase
 #mkdir Code
 #cd Code
 # TODO: get a read-only use to automate checkout and let the devs customize their own svn conf 
 #svn checkout https://svn.irondatacorp.com/svn/icm-20 Code
+# automate importing this workspace into GGTS?
 
 sudo reboot
