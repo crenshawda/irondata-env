@@ -56,10 +56,10 @@ mysql -uroot -proot bpmdb < activiti-5.13/database/create/activiti.mysql.create.
 mysql -uroot -proot bpmdb < activiti-5.13/database/create/activiti.mysql.create.identity.sql
 
 # ICM DB/Tables
-#mysql -u root -p root -e "CREATE DATABASE icmdb;"
-#mysql -u root -p root -e "CREATE USER 'icmadmin'@'localhost' IDENTIFIED BY 'icmadmin';"
-#mysql -u root -p root -e "GRANT ALL ON icmdb.* to 'icmadmin'@'localhost';"
-#mysql -u root -p root -e "GRANT ALL ON icmdb.* to 'icmadmin'@'127.0.0.1';"
+mysql -u root -p root -e "CREATE DATABASE icmdb;"
+mysql -u root -p root -e "CREATE USER 'icmadmin'@'localhost' IDENTIFIED BY 'icmadmin';"
+mysql -u root -p root -e "GRANT ALL ON icmdb.* to 'icmadmin'@'localhost';"
+mysql -u root -p root -e "GRANT ALL ON icmdb.* to 'icmadmin'@'127.0.0.1';"
 
 # TODO: Get liquibase code
 # svn co https://svn.irondatacorp.com/svn/icm-20/clientApps/wiiris/database/branches/v004/ liquibase
