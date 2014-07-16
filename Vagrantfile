@@ -23,8 +23,26 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #v.customize 'pre-boot', ['modifyhd', :id, '--resize', '15360']
 
   # Bootstrap IronData Base Env
-  config.vm.provision "file", source: "id-env.sh", destination: "/home/vagrant/id-env.sh"
-  config.vm.provision "shell", path: "base.sh"
+  # Copy over all the modules!
+  config.vm.provision "file", source: "modules/base.sh", destination: "/home/vagrant/_provision/modules/base.sh"
+  config.vm.provision "file", source: "modules/oracle-jdk.sh", 
+	  destination: "/home/vagrant/_provision/modules/oracle-jdk.sh"
+  config.vm.provision "file", source: "modules/gvm.sh", 
+	  destination: "/home/vagrant/_provision/modules/gvm.sh"
+  config.vm.provision "file", source: "modules/liquibase.sh", 
+	  destination: "/home/vagrant/_provision/modules/liquibase.sh"
+  config.vm.provision "file", source: "modules/ggts.sh", 
+	  destination: "/home/vagrant/_provision/modules/ggts.sh"
+  config.vm.provision "file", source: "modules/mysql.sh", 
+	  destination: "/home/vagrant/_provision/modules/mysql.sh"
+  config.vm.provision "file", source: "modules/bpmdb-schema.sh", 
+	  destination: "/home/vagrant/_provision/modules/bpmdb-schema.sh"
+  config.vm.provision "file", source: "modules/icmdb-schema.sh", 
+	  destination: "/home/vagrant/_provision/modules/icmdb-schema.sh"
+  config.vm.provision "file", source: "modules/desktop-env.sh", 
+	  destination: "/home/vagrant/_provision/modules/desktop-env.sh"
+  config.vm.provision "file", source: "id-env.sh", destination: "/home/vagrant/_provision/id-env.sh"
+  config.vm.provision "shell", path: "provision.sh"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
