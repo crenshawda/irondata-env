@@ -34,7 +34,7 @@ cd Code
 #3- qaBaseRefDataIRIS.xlsx
 #4- Postcode1.xlsx  **
 
-#curl -XPOST -F file=@/vagrant/Code/icmdb-data/xxx.xlsx http://localhost:8080/wiiris-dataload/dataload/upload
+#curl -XPOST http://localhost:8080/wiiris-dataload/dataload/upload -F file=@/vagrant/Code/icmdb-data/xxx.xlsx
 
 # stop the app-server?
 #grails stop-app?

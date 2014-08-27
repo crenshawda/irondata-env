@@ -11,6 +11,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "box-cutter/ubuntu1404-desktop"
+  config.vm.synced_folder "./", "/vagrant", owner:'vagrant', group:'vagrant', 
+	  mount_options:['dmode=777', 'fmode=666','nosuid']#, 'share']
+  config.vm.network :forwarded_port, host: 80, guest: 8080
 
   # Enable GUI
   config.vm.provider "virtualbox" do |v|
