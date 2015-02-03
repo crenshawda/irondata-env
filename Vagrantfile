@@ -10,7 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "GR360RY/trusty64-desktop-minimal"
   config.vm.synced_folder "./", "/vagrant", owner:'vagrant', group:'vagrant', 
 	  mount_options:['dmode=777', 'fmode=666','nosuid']#, 'share']
   config.vm.network :forwarded_port, host: 80, guest: 8080
